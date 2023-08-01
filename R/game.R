@@ -58,6 +58,12 @@ get_game_report <- function(season, game_id) {
   return(list(tall = tall, tev = tev, t5v5 = t5v5, tsva = tsva, tpp = tpp, tpk = tpk))
 }
 
+#' NST Table Cleanup
+#'
+#' @param data partial nst table
+#'
+#' @return nst table after cleanup
+#' @importFrom rlang .data
 nst_table_cleanup <- function(data){
   data %>%
     dplyr::rename("team" = "x", "xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%

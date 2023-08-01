@@ -22,3 +22,7 @@ time_to_sec <- function (time) {
    v_tts <- Vectorize(subfun, USE.NAMES = FALSE)
    v_tts(time)
  }
+
+clear_cache <- function(){
+  memoise::forget(.nst_game_call)
+}
