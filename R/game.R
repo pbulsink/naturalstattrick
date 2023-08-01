@@ -96,6 +96,7 @@ nst_table_cleanup <- function(data){
 .nst_game_call <- function(season, game_id){
   nst_game_url <- glue::glue("https://www.naturalstattrick.com/game.php?season={season}&game={game}",
                         season = season, game = game_id)
+  httr::set_config(httr::user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick"))
   nst_html<-rvest::read_html(nst_game_url)
 
   return(nst_html)
