@@ -12,7 +12,7 @@ LazyData: true
 Imports: 
     dplyr,
     glue,
-    httr,
+    httr2,
     janitor,
     magrittr,
     memoise,

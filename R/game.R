@@ -109,8 +109,12 @@ nst_table_cleanup <- function(data) {
   nst_game_url <- glue::glue("https://www.naturalstattrick.com/game.php?season={season}&game={game}",
     season = season, game = game_id
   )
-  httr::set_config(httr::user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick"))
-  nst_html <- rvest::read_html(nst_game_url)
+  nst_html<-httr2::request(nst_game_url) %>%
+    httr2::req_throttle(60/60) %>%
+    httr2::req_retry(5) %>%
+    httr2::req_user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick") %>%
+    httr2::req_perform() %>%
+    httr2::resp_body_html()
 
   return(nst_html)
 }
@@ -126,17 +130,50 @@ nst_game_call <- memoise::memoise(.nst_game_call)
 #' @param season Season in 8 numeric format (i.e. 20212022)
 #' @param game_id Game Id in 5 digit format 20001. Regular season games begin with a 2, playoff games with a 3
 #'
-#' @return a tibble of all scenario data with
-#' corsi, fenwick, shots, and more data retuned for each team
+#' @return a tibble of all scenarios' data with
+#' corsi, fenwick, shots, and more data returned for each team
 #'
 #' @export
-nst_short_report <- function(season, game_id) {
+nst_report <- function(season, game_id) {
   game <- get_game_report(season, game_id)
 
   gall <- game$tall %>%
     dplyr::filter(.data$period == "Final") %>%
-    dplyr::select(c("team", "cf", "ff", "sf", "scf", "hdcf", "xgf", "gf")) %>%
-    dplyr::mutate("h_a" = c("home", "away"))
+    dplyr::mutate("h_a" = c("home", "away")) %>%
+    dplyr::select("team", "h_a", "cf_all" = "cf", "ff_all" = "ff", "sf_all" = "sf", "scf_all" = "scf",
+                  "hdcf_all" = "hdcf", "xgf_all" = "xgf", "gf_all" = "gf")
 
-  return(gall)
+
+  gev<- game$tev %>%
+    dplyr::filter(.data$period == "Final") %>%
+    dplyr::select("team", "cf_ev" = "cf", "ff_ev" = "ff", "sf_ev" = "sf", "scf_ev" = "scf",
+                  "hdcf_ev" = "hdcf", "xgf_ev" = "xgf", "gf_ev" = "gf")
+  g5v5<- game$t5v5 %>%
+    dplyr::filter(.data$period == "Final") %>%
+    dplyr::select("team", "cf_5v5" = "cf", "ff_5v5" = "ff", "sf_5v5" = "sf", "scf_5v5" = "scf",
+                  "hdcf_5v5" = "hdcf", "xgf_5v5" = "xgf", "gf_5v5" = "gf")
+
+  gsva<- game$tsva %>%
+    dplyr::filter(.data$period == "Final") %>%
+    dplyr::select("team", "cf_sva" = "cf", "ff_sva" = "ff", "sf_sva" = "sf", "scf_sva" = "scf",
+                  "hdcf_sva" = "hdcf", "xgf_sva" = "xgf", "gf_sva" = "gf")
+
+  gpp<- game$tpp %>%
+    dplyr::filter(.data$period == "Final") %>%
+    dplyr::select("team", "cf_pp" = "cf", "ff_pp" = "ff", "sf_pp" = "sf", "scf_pp" = "scf",
+                  "hdcf_pp" = "hdcf", "xgf_pp" = "xgf", "gf_pp" = "gf")
+
+  gpk<- game$tpk %>%
+    dplyr::filter(.data$period == "Final") %>%
+    dplyr::select("team", "cf_pk" = "cf", "ff_pk" = "ff", "sf_pk" = "sf", "scf_pk" = "scf",
+                  "hdcf_pk" = "hdcf", "xgf_pk" = "xgf", "gf_pk" = "gf")
+
+  greport<- gall %>%
+    dplyr::left_join(gev, by = "team") %>%
+    dplyr::left_join(g5v5, by = "team") %>%
+    dplyr::left_join(gsva, by = "team") %>%
+    dplyr::left_join(gpp, by = "team") %>%
+    dplyr::left_join(gpk, by = "team")
+
+  return(greport)
 }

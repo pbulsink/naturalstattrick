@@ -2,6 +2,6 @@
 
 export("%>%")
 export(get_game_report)
-export(nst_short_report)
+export(nst_report)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
