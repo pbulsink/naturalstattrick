@@ -1,0 +1,48 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+library(naturalstattrick)
+```
+
+# naturalstattrick
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/pbulsink/naturalstattrick/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pbulsink/naturalstattrick/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+The goal of naturalstattrick is to provide a convenient and basic interface to game-level Natural Stat Trick data. 
+
+## Installation
+
+You can install the development version of naturalstattrick from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("pbulsink/naturalstattrick")
+```
+
+## Usage 
+
+Get a game's results by calling:
+```{r full_report}
+get_game_report(season = 20222023, game_id = 20041)
+```
+
+The `game_id` parameter is of the NHL Game ID style and season a 8 digit number (i.e. 20222023 for the 2022-2023 season).
+
+Alternatively rearrange the output by calling:
+```{r nst_report}
+nst_report(20222023, 20041)
+```
+
+Note that the abbreviations are all explained on the Natural Stat Trick website at https://www.naturalstattrick.com/glossary.php?teams.

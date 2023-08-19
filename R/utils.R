@@ -20,5 +20,5 @@ time_to_sec <- function(time) {
 }
 
 clear_cache <- function() {
-  memoise::forget(.nst_game_call)
+  memoise::forget(nst_game_call)
 }
