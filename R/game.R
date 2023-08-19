@@ -9,7 +9,7 @@
 #'
 #' @return a list of tibbles with different scenarios (all, 5v5, 5v4, 4v5, etc)
 #' @export
-get_game_report <- function(season, game_id) {
+nst_report_list <- function(season, game_id) {
   # #tbtsall
   # #tbtsev
   # #tbts5v5
@@ -133,8 +133,8 @@ nst_game_call <- function(season, game_id) {
 #' corsi, fenwick, shots, and more data returned for each team
 #'
 #' @export
-nst_report <- function(season, game_id) {
-  game <- get_game_report(season, game_id)
+nst_report_df <- function(season, game_id) {
+  game <- nst_report_list(season, game_id)
 
   gall <- game$tall %>%
     dplyr::filter(.data$period == "Final") %>%

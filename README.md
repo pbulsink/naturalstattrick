@@ -27,7 +27,7 @@ devtools::install_github("pbulsink/naturalstattrick")
 Get a game’s results by calling:
 
 ``` r
-get_game_report(season = 20222023, game_id = 20041)
+nst_report_list(season = 20222023, game_id = 20041)
 #> $tall
 #> # A tibble: 8 × 25
 #>   team    period toi      cf    ca cf_percent    ff    fa ff_percent    sf    sa
@@ -134,10 +134,11 @@ get_game_report(season = 20222023, game_id = 20041)
 The `game_id` parameter is of the NHL Game ID style and season a 8 digit
 number (i.e. 20222023 for the 2022-2023 season).
 
-Alternatively rearrange the output by calling:
+Alternatively rearrange the output to a data.frame type object by
+calling:
 
 ``` r
-nst_report(20222023, 20041)
+nst_report_df(20222023, 20041)
 #> # A tibble: 2 × 44
 #>   team    h_a   cf_all ff_all sf_all scf_all hdcf_all xgf_all gf_all cf_ev ff_ev
 #>   <chr>   <chr>  <dbl>  <dbl>  <dbl>   <dbl>    <dbl>   <dbl>  <dbl> <dbl> <dbl>
