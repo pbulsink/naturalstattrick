@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/pbulsink/naturalstattrick/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pbulsink/naturalstattrick/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/pbulsink/naturalstattrick/graph/badge.svg?token=1eceI2f2pK)](https://codecov.io/gh/pbulsink/naturalstattrick)
 <!-- badges: end -->
 
 The goal of naturalstattrick is to provide a convenient and basic
