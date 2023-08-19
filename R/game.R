@@ -105,11 +105,11 @@ nst_table_cleanup <- function(data) {
     return()
 }
 
-.nst_game_call <- function(season, game_id) {
-  nst_game_url <- glue::glue("https://www.naturalstattrick.com/game.php?season={season}&game={game}",
-    season = season, game = game_id
-  )
-  nst_html<-httr2::request(nst_game_url) %>%
+nst_game_call <- function(season, game_id) {
+  nst_html<-httr2::request("https://www.naturalstattrick.com") %>%
+    httr2::req_url_path_append(glue::glue("game.php?season={season}&game={game}",
+                                          season = season, game = game_id
+    )) %>%
     httr2::req_throttle(60/60) %>%
     httr2::req_retry(5) %>%
     httr2::req_user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick") %>%
@@ -119,7 +119,6 @@ nst_table_cleanup <- function(data) {
   return(nst_html)
 }
 
-nst_game_call <- memoise::memoise(.nst_game_call)
 
 #' NST Short Report
 #'
@@ -142,7 +141,6 @@ nst_report <- function(season, game_id) {
     dplyr::mutate("h_a" = c("home", "away")) %>%
     dplyr::select("team", "h_a", "cf_all" = "cf", "ff_all" = "ff", "sf_all" = "sf", "scf_all" = "scf",
                   "hdcf_all" = "hdcf", "xgf_all" = "xgf", "gf_all" = "gf")
-
 
   gev<- game$tev %>%
     dplyr::filter(.data$period == "Final") %>%
