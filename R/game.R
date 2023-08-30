@@ -106,6 +106,7 @@ nst_table_cleanup <- function(data) {
 }
 
 nst_game_call <- function(season, game_id) {
+  stopifnot(as.integer(substr(season, 1, 4))>=2007)
   nst_html<-httr2::request("https://www.naturalstattrick.com") %>%
     httr2::req_url_path_append(glue::glue("game.php?season={season}&game={game}",
                                           season = season, game = game_id

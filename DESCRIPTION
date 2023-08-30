@@ -22,3 +22,5 @@ Authors@R:
 URL: https://github.com/pbulsink/naturalstattrick/
 BugReports: https://github.com/pbulsink/naturalstattrick/issues
 Config/testthat/edition: 3
+Suggests: 
+    testthat (>= 3.0.0)
