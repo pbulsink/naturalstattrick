@@ -25,14 +25,21 @@ clear_cache <- function() {
 
 #' Write NST Game DF to R
 #'
-#' @param gid gameID in YYYY0#GGGG format
+#' @param gid gameID in YYYY0#GGGG format, or NULL to use season and game_id directly
+#' @param season season in YYYYYYYY format (i.e. 20072008). Overwritten by calculated season if gid is provided
+#' @param game_id game_id in ##### format (i.e. 21200). Overwritten by calculated game_id if gid is provided
 #' @param file csv file to add the selected game to
 #'
 #' @return None, called for side-effects
 #' @export
-write_game_df_to_file <- function(gid, file = "~/Documents/natstattrick.csv") {
-  season <- paste0(as.integer(substr(gid, 1, 4)), as.integer(substr(gid, 1, 4)) + 1)
-  game_id <- substr(gid, 6, 10)
+
+write_game_df_to_file<-function(gid, season = NULL, game_id = NULL, file = "~/Documents/natstattrick.csv"){
+  if(!is.null(gid)){
+    season<-paste0(as.integer(substr(gid, 1, 4)), as.integer(substr(gid, 1, 4))+1)
+    game_id<-substr(gid, 6,10)
+  } else {
+    gid <- paste0(substr(season, 1,4), "0", game_id)
+  }
 
   # Using grep to test the file has the gameid in it or not is faster than loading the file
   # each and every time.
