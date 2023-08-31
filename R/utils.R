@@ -30,14 +30,14 @@ clear_cache <- function() {
 #'
 #' @return None, called for side-effects
 #' @export
-write_game_df_to_file<-function(gid, file = "~/Documents/natstattrick.csv"){
-  season<-paste0(as.integer(substr(gid, 1, 4)), as.integer(substr(gid, 1, 4))+1)
-  game_id<-substr(gid, 6,10)
+write_game_df_to_file <- function(gid, file = "~/Documents/natstattrick.csv") {
+  season <- paste0(as.integer(substr(gid, 1, 4)), as.integer(substr(gid, 1, 4)) + 1)
+  game_id <- substr(gid, 6, 10)
 
   # Using grep to test the file has the gameid in it or not is faster than loading the file
   # each and every time.
-  if(system2("grep", paste0('-l "', gid, '" ' , file)) != 0){
-    nstdf<-nst_report_df(season, game_id)
+  if (system2("grep", paste0('-l "', gid, '" ', file)) != 0) {
+    nstdf <- nst_report_df(season, game_id)
     nstdf$game_id <- gid
     write.csv(nstdf, file = file, append = TRUE, row.names = FALSE, col.names = TRUE)
   }
