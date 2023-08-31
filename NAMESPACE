@@ -3,5 +3,6 @@
 export("%>%")
 export(nst_report_df)
 export(nst_report_list)
+export(write_game_df_to_file)
 importFrom(magrittr,"%>%")
 importFrom(rlang,.data)
