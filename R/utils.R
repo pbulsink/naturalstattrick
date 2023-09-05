@@ -46,5 +46,6 @@ write_game_df_to_file <- function(gid, season = NULL, game_id = NULL, filename =
     nstdf <- nst_report_df(season, game_id)
     nstdf$game_id <- gid
     write.table(nstdf, file = filename, append = TRUE, row.names = FALSE, col.names = FALSE, sep = ",", )
+    closeAllConnections()
   }
 }
