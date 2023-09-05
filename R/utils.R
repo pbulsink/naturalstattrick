@@ -42,7 +42,7 @@ write_game_df_to_file <- function(gid, season = NULL, game_id = NULL, filename =
 
   # Using grep to test the file has the gameid in it or not is faster than loading the file
   # each and every time.
-  if (system2("grep", paste0('-l "', gid, '" ', filename)) != 0) {
+  if (system2("grep", paste0('-l "', gid, '" ', filename), stdout = FALSE) != 0) {
     nstdf <- nst_report_df(season, game_id)
     nstdf$game_id <- gid
     write.table(nstdf, file = filename, append = TRUE, row.names = FALSE, col.names = FALSE, sep = ",", )
