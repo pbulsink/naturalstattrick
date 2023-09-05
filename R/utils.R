@@ -28,7 +28,7 @@ clear_cache <- function() {
 #' @param gid gameID in YYYY0#GGGG format, or NULL to use season and game_id directly
 #' @param season season in YYYYYYYY format (i.e. 20072008). Overwritten by calculated season if gid is provided
 #' @param game_id game_id in ##### format (i.e. 21200). Overwritten by calculated game_id if gid is provided
-#' @param file csv file to add the selected game to
+#' @param filename csv file to add the selected game to
 #'
 #' @return None, called for side-effects
 #' @export
@@ -45,7 +45,7 @@ write_game_df_to_file <- function(gid, season = NULL, game_id = NULL, filename =
   if (system2("grep", paste0('-l "', gid, '" ', filename), stdout = FALSE) != 0) {
     nstdf <- nst_report_df(season, game_id)
     nstdf$game_id <- gid
-    write.table(nstdf, file = filename, append = TRUE, row.names = FALSE, col.names = FALSE, sep = ",", )
+    utils::write.table(nstdf, file = filename, append = TRUE, row.names = FALSE, col.names = FALSE, sep = ",", )
     closeAllConnections()
   }
 }

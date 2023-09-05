@@ -18,7 +18,7 @@ write_game_df_to_file(
 
 \item{game_id}{game_id in ##### format (i.e. 21200). Overwritten by calculated game_id if gid is provided}
 
-\item{file}{csv file to add the selected game to}
+\item{filename}{csv file to add the selected game to}
 }
 \value{
 None, called for side-effects

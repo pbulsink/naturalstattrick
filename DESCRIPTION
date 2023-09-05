@@ -2,7 +2,7 @@ Package: naturalstattrick
 Type: Package
 Title: Natural Stat Trick Data in R
 Version: 0.1.0
-Description: This package allows for accessing of Natural Stat Trick (https://naturalstattrick.com) data in R. This package currently accesses just game report data. It has built-in caching, rate-limiting, and auto-retry on connection failures. See more information at https://naturalstattrick.com/glossary
+Description: This package allows for accessing of Natural Stat Trick (https://naturalstattrick.com) data in R. This package currently accesses just game report data. It has built-in caching, rate-limiting, and auto-retry on connection failures. See more information at https://naturalstattrick.com/glossary.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -113,6 +113,7 @@ nst_game_call <- function(season, game_id) {
     )) %>%
     httr2::req_throttle(180 / 3600) %>% # 180 calls per h
     httr2::req_retry(5) %>%
+    httr2::req_timeout(30) %>%
     httr2::req_user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick") %>%
     httr2::req_perform() %>%
     httr2::resp_body_html()
