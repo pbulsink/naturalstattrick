@@ -50,4 +50,6 @@ write_game_df_to_file <- function(gid, season = NULL, game_id = NULL, filename =
     gc(verbose = FALSE)
     clear_cache()
   }
+
+  invisible(TRUE)
 }

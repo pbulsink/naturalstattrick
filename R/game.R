@@ -65,6 +65,17 @@ nst_report_list <- function(season, game_id) {
 #' @return nst table after cleanup
 #' @importFrom rlang .data
 nst_table_cleanup <- function(data) {
+  if('corski_f' %in% colnames(data)){
+    data <- data %>%
+      dplyr::rename("cf" = "corski_f", "ca" = "corski_a", "cf_percent" = "corski_f_percent",
+                    "ff" = "fenski_f", "fa" = "fenski_a", "ff_percent" = "fenski_f_percent")
+  }
+  if(!'x' %in% colnames(data)){
+    data$x <- c('UnknownHome', 'UnknownAway')
+  }
+  if(all(is.na(data$x))){
+    data$x <- c('UnknownHome', 'UnknownAway')
+  }
   data %>%
     dplyr::rename("team" = "x", "xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%
     dplyr::mutate(period = sub("\nFinal", "Final", .data$period)) %>%
