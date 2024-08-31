@@ -67,19 +67,21 @@ write_game_df_to_file <- function(gid, season = NULL, game_id = NULL, filename =
 #' @export
 get_season_to_file <- function(season, playoffs = FALSE, filename = "~/Documents/natstattrick.csv") {
   stopifnot(as.integer(substr(season, 1, 4)) >= 2007)
-  season <- substr(season, 1,4)
-  if(!playoffs) {
+  season <- substr(season, 1, 4)
+  if (!playoffs) {
     gid <- 20001:21312
   } else {
-    gid <- c(30111:30117, 30121:30127, 30131:30137, 30141:30147, 30151:30157, 30161:30167, 30171:30177, 30181:30187,
-             30211:30217, 30221:30227, 30231:30237, 30241:30247, 30311:30317, 30321:30327, 30411:30417)
-    if(season == 2020){
+    gid <- c(
+      30111:30117, 30121:30127, 30131:30137, 30141:30147, 30151:30157, 30161:30167, 30171:30177, 30181:30187,
+      30211:30217, 30221:30227, 30231:30237, 30241:30247, 30311:30317, 30321:30327, 30411:30417
+    )
+    if (season == 2020) {
       gid <- c(30001:30007, 30011:30017, 30021:30027, 30031:30037, 30041:30047, 30051:30057, 30061:30067, 30071:30077, 30081:30087, 30091:30097, gid)
     }
   }
   gid <- paste0(season, "0", gid)
 
-  for(g in seq_along(gid)) {
+  for (g in seq_along(gid)) {
     tryCatch(
       write_game_df_to_file(gid = gid[g], filename = filename),
       error = function(e) message(paste0("Error in ", gid[g], ": ", e))
