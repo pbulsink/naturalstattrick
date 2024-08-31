@@ -21,5 +21,6 @@ get_season_to_file(
 invisible TRUE if finished ok.
 }
 \description{
-a convenience function to write a whole season's nst data to file
+a convenience function to write a whole season's nst data to file. Note this will try *all* possible
+playoff games and result in messages reporting errors for all series that didn't go to 7 games.
 }

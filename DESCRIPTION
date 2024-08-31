@@ -3,7 +3,6 @@ Type: Package
 Title: Natural Stat Trick Data in R
 Version: 0.1.0
 Description: This package allows for accessing of Natural Stat Trick (https://naturalstattrick.com) data in R. This package currently accesses just game report data. It has built-in caching, rate-limiting, and auto-retry on connection failures. See more information at https://naturalstattrick.com/glossary.
-License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: 
@@ -18,9 +17,11 @@ Imports:
     tidyr
 RoxygenNote: 7.3.1
 Authors@R: 
-    person("Philip", "Bulsink", email = "bulsinkp@gmail.com", role = c("cre", "ctb", "cph"))
+    person("Philip", "Bulsink", email = "bulsinkp@gmail.com", role = c("cre", "ctb", "cph"), comment = c(ORCID = "0000-0001-9668-2429"))
 URL: https://github.com/pbulsink/naturalstattrick/
 BugReports: https://github.com/pbulsink/naturalstattrick/issues
 Config/testthat/edition: 3
 Suggests: 
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
+License: MIT + file LICENSE
