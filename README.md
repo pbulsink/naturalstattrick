@@ -154,5 +154,14 @@ nst_report_df(20222023, 20041)
 #> #   scf_pk <dbl>, hdcf_pk <dbl>, xgf_pk <dbl>, gf_pk <dbl>
 ```
 
+Download a whole season’s data (regular season or playoffs) to a .csv
+file with:
+
+``` r
+get_season_to_file(2022, playoffs = FALSE, file = "~/Desktop/myNSTdata.csv")
+```
+
 Note that the abbreviations are all explained on the Natural Stat Trick
-website at <https://www.naturalstattrick.com/glossary.php?teams>.
+website at <https://www.naturalstattrick.com/glossary.php?teams>. If
+using their data, cite them per their request and maybe sign-up for
+their Patreon to support their work.

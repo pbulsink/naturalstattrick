@@ -46,4 +46,10 @@ Alternatively rearrange the output to a data.frame type object by calling:
 nst_report_df(20222023, 20041)
 ```
 
-Note that the abbreviations are all explained on the Natural Stat Trick website at https://www.naturalstattrick.com/glossary.php?teams.
+Download a whole season's data (regular season or playoffs) to a .csv file with:
+```{r nst_season, eval=F}
+get_season_to_file(2022, playoffs = FALSE, file = "~/Desktop/myNSTdata.csv")
+```
+
+Note that the abbreviations are all explained on the Natural Stat Trick website at https://www.naturalstattrick.com/glossary.php?teams. If using their data, cite them per their request and maybe sign-up
+for their Patreon to support their work.

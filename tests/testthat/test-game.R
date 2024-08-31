@@ -1,4 +1,5 @@
 test_that("simple game works", {
+  skip_if_offline()
   game_df <- nst_report_df(20222023, 20001)
   game_list <- nst_report_list(20222023, 20001)
 
@@ -8,6 +9,7 @@ test_that("simple game works", {
 })
 
 test_that("OT regular game works", {
+  skip_if_offline()
   game_df <- nst_report_df(20222023, 21301)
   game_list <- nst_report_list(20222023, 21301)
 
@@ -18,6 +20,7 @@ test_that("OT regular game works", {
 })
 
 test_that("SO game works", {
+  skip_if_offline()
   game_df <- nst_report_df(20222023, 21282)
   game_list <- nst_report_list(20222023, 21282)
 
@@ -28,6 +31,7 @@ test_that("SO game works", {
 })
 
 test_that("Multi-OT playoff game works", {
+  skip_if_offline()
   game_df <- nst_report_df(20222023, 30311)
   game_list <- nst_report_list(20222023, 30311)
 

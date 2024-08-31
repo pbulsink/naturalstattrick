@@ -16,7 +16,7 @@ Imports:
     rlang,
     rvest,
     tidyr
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Authors@R: 
     person("Philip", "Bulsink", email = "bulsinkp@gmail.com", role = c("cre", "ctb", "cph"))
 URL: https://github.com/pbulsink/naturalstattrick/
