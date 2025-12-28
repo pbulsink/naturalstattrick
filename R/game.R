@@ -121,9 +121,8 @@ nst_table_cleanup <- function(data) {
 nst_game_call <- function(season, game_id) {
   stopifnot(as.integer(substr(season, 1, 4)) >= 2007)
   nst_html <- httr2::request("https://www.naturalstattrick.com") %>%
-    httr2::req_url_path_append(glue::glue("game.php?season={season}&game={game}",
-      season = season, game = game_id
-    )) %>%
+    httr2::req_url_path_append("game.php") %>%
+    httr2::req_url_query("season" = season, "game" = game) %>%
     httr2::req_throttle(180 / 3600) %>% # 180 calls per h
     httr2::req_retry(5) %>%
     httr2::req_timeout(30) %>%
