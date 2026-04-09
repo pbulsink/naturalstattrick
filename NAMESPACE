@@ -2,10 +2,10 @@
 
 export("%>%")
 export(get_season_to_file)
-export(nst_report_df)
-export(nst_report_list)
 export(nst_key_clear)
 export(nst_key_set)
+export(nst_report_df)
+export(nst_report_list)
 export(nst_season_results)
 export(write_game_df_to_file)
 importFrom(magrittr,"%>%")
