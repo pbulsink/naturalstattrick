@@ -5,19 +5,34 @@
 #'
 #' @description Store a Natural Stat Trick access key for future requests.
 #' The key is kept in a hidden package environment and is not written to disk.
+#' This key will be used for all subsequent requests to data.naturalstattrick.com.
+#' Alternatively, set the environment variable NST_ACCESS_KEY.
 #'
 #' @param key A single character access key from Natural Stat Trick.
-#'
 #' @return Invisibly returns NULL.
 #' @export
+#' @examples
+#' \dontrun{
+#' nst_key_set("your-access-key-here")
+#' }
 nst_key_set <- function(key) {
   stopifnot(is.character(key), length(key) == 1, nzchar(key))
   .nst_env$nst_key <- key
   invisible(NULL)
 }
 
-#' @rdname nst_key_set
+#' Clear Natural Stat Trick access key
+#'
+#' @description Remove the stored Natural Stat Trick access key.
+#' After clearing, requests will fall back to the NST_ACCESS_KEY environment variable,
+#' or fail if no key is available.
+#'
+#' @return Invisibly returns NULL.
 #' @export
+#' @examples
+#' \dontrun{
+#' nst_key_clear()
+#' }
 nst_key_clear <- function() {
   .nst_env$nst_key <- NULL
   invisible(NULL)
