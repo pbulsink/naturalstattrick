@@ -1,5 +1,12 @@
+if (!nzchar(Sys.getenv("NST_ACCESS_KEY", ""))) {
+  skip("NST access key not configured")
+}
+
+nst_key_set(Sys.getenv("NST_ACCESS_KEY"))
+
 test_that("simple game works", {
   skip_if_offline()
+
   game_df <- nst_report_df(20222023, 20001)
   game_list <- nst_report_list(20222023, 20001)
 
