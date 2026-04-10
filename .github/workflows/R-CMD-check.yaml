@@ -44,6 +44,13 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
 
+      - name: Create and populate .Renviron file
+        run: |
+          echo NST_ACCESS_KEY="$MAPPED_NST_KEY" >> ~/.Renviron
+        shell: bash
+        env:
+          MAPPED_NST_KEY: ${{ secrets.NST_ACCESS_KEY}}
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
