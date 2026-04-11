@@ -14,7 +14,9 @@ nst_season_results <- function(season, playoffs = FALSE) {
 }
 
 nst_linescore_call <- function(season, playoffs = FALSE) {
-  stopifnot(as.integer(substr(season, 1, 4)) >= 2007)
+  if(!as.integer(substr(season, 1, 4)) >= 2007){
+    cli::cli_abort("NaturalStatTrick data only available from 2007-2008 and onward.")
+  }
   if (nchar(season) != 8) {
     s1 <- as.numeric(substr(season, 1, 4))
     season <- as.numeric(paste0(s1, s1 + 1))
@@ -23,7 +25,7 @@ nst_linescore_call <- function(season, playoffs = FALSE) {
   playoffs <- ifelse(playoffs, 3, 2)
 
   req <- httr2::request("https://data.naturalstattrick.com") %>%
-    httr2::req_url_path_append("game.php") %>%
+    httr2::req_url_path_append("games.php") %>%
     httr2::req_url_query(
       "fromseason" = season,
       "thruseason" = season,
@@ -34,11 +36,13 @@ nst_linescore_call <- function(season, playoffs = FALSE) {
       "rate" = "n"
     )
 
-  if (!is.null(nst_get_key())) {
-    req <- httr2::req_headers(req, "nst-key" = nst_get_key())
+  key <- nst_get_key()
+  if (!is.null(key)) {
+    req <- httr2::req_headers(req, "nst-key" = key)
+  } else {
+    cli::cli_abort(c('Error in saturalstattrick:::nst_linescore_call: no nst-key available.',
+                     i = "See https://www.naturalstattrick.com/scraping.php for info."))
   }
-
-  nst_wait_rate_limit()
 
   nst_html <- req %>%
     httr2::req_throttle(180 / 3600) %>%

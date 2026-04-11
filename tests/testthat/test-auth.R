@@ -1,10 +1,15 @@
-test_that("access key can be set and cleared", {
-  nst_key_clear()
-  expect_null(naturalstattrick:::.nst_env$nst_key)
+test_that("save_nst_access_key requires non-empty key", {
+  expect_error(save_nst_access_key(""), class = "error")
+  expect_error(save_nst_access_key(c("key1", "key2")), class = "error")
+  expect_error(save_nst_access_key(123), class = "error")
+})
 
-  nst_key_set("test-key")
-  expect_equal(naturalstattrick:::.nst_env$nst_key, "test-key")
+test_that("nst_get_key retrieves from environment", {
+  withr::with_envvar(c("NST_ACCESS_KEY" = "test-key"), {
+    expect_equal(naturalstattrick:::nst_get_key(), "test-key")
+  })
 
-  nst_key_clear()
-  expect_null(naturalstattrick:::.nst_env$nst_key)
+  withr::with_envvar(c("NST_ACCESS_KEY" = ""), {
+    expect_null(naturalstattrick:::nst_get_key())
+  })
 })

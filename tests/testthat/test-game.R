@@ -2,8 +2,6 @@ if (!nzchar(Sys.getenv("NST_ACCESS_KEY", ""))) {
   skip("NST access key not configured")
 }
 
-nst_key_set(Sys.getenv("NST_ACCESS_KEY"))
-
 test_that("simple game works", {
   skip_if_offline()
 

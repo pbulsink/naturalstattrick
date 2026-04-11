@@ -78,8 +78,11 @@ nst_table_cleanup <- function(data) {
   if (all(is.na(data$x))) {
     data$x <- c("UnknownHome", "UnknownAway")
   }
+  if (!"period" %in% colnames(data)){
+    data$period <- ""
+  }
   data %>%
-    dplyr::rename("team" = "x", "xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%
+    dplyr::rename("ha" = "x", "xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%
     dplyr::mutate(period = sub("\nFinal", "Final", .data$period)) %>%
     dplyr::mutate(period = sub("Final", "\nFinal", .data$period)) %>%
     tidyr::separate_longer_delim(
@@ -125,11 +128,10 @@ nst_game_call <- function(season, game_id) {
     httr2::req_url_path_append("game.php") %>%
     httr2::req_url_query("season" = season, "game" = game_id)
 
-  if (!is.null(nst_get_key())) {
-    req <- httr2::req_headers(req, "nst-key" = nst_get_key())
+  key <- nst_get_key()
+  if (!is.null(key)) {
+    req <- httr2::req_headers(req, "nst-key" = key)
   }
-
-  nst_wait_rate_limit()
 
   nst_html <- req %>%
     httr2::req_throttle(180 / 3600) %>% # 180 calls per h
