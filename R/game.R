@@ -81,7 +81,7 @@ nst_table_cleanup <- function(data) {
   if (!"team" %in% colnames(data)){
     data$team <- data$x
   }
-  if (!"period" %in% colnames(data)){
+  if (!"period" %in% colnames(data)) {
     data$period <- ""
   }
   data %>%

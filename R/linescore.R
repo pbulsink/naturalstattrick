@@ -14,7 +14,7 @@ nst_season_results <- function(season, playoffs = FALSE) {
 }
 
 nst_linescore_call <- function(season, playoffs = FALSE) {
-  if(!as.integer(substr(season, 1, 4)) >= 2007){
+  if (!as.integer(substr(season, 1, 4)) >= 2007) {
     cli::cli_abort("NaturalStatTrick data only available from 2007-2008 and onward.")
   }
   if (nchar(season) != 8) {
@@ -40,8 +40,9 @@ nst_linescore_call <- function(season, playoffs = FALSE) {
   if (!is.null(key)) {
     req <- httr2::req_headers(req, "nst-key" = key)
   } else {
-    cli::cli_abort(c('Error in saturalstattrick:::nst_linescore_call: no nst-key available.',
-                     i = "See https://www.naturalstattrick.com/scraping.php for info."))
+    cli::cli_abort(c("Error in saturalstattrick:::nst_linescore_call: no nst-key available.",
+      i = "See https://www.naturalstattrick.com/scraping.php for info."
+    ))
   }
 
   nst_html <- req %>%
