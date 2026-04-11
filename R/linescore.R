@@ -14,7 +14,9 @@ nst_season_results <- function(season, playoffs = FALSE) {
 }
 
 nst_linescore_call <- function(season, playoffs = FALSE) {
-  stopifnot(as.integer(substr(season, 1, 4)) >= 2007)
+  if (!as.integer(substr(season, 1, 4)) >= 2007) {
+    cli::cli_abort("NaturalStatTrick data only available from 2007-2008 and onward.")
+  }
   if (nchar(season) != 8) {
     s1 <- as.numeric(substr(season, 1, 4))
     season <- as.numeric(paste0(s1, s1 + 1))
@@ -22,15 +24,36 @@ nst_linescore_call <- function(season, playoffs = FALSE) {
   stopifnot(nchar(season) == 8)
   playoffs <- ifelse(playoffs, 3, 2)
 
-  # This works?
-  nst_html <- glue::glue("https://www.naturalstattrick.com/game.php?fromseason={season}&thruseason={season}&stype={playoffs}&sit=all&loc=B&team=All&rate=n",
-    season = season, playoffs = playoffs
-  ) %>%
-    httr::GET(httr::user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick")) %>%
-    httr::content() %>%
+  req <- httr2::request("https://data.naturalstattrick.com") %>%
+    httr2::req_url_path_append("games.php") %>%
+    httr2::req_url_query(
+      "fromseason" = season,
+      "thruseason" = season,
+      "stype" = playoffs,
+      "sit" = "all",
+      "loc" = "B",
+      "team" = "All",
+      "rate" = "n"
+    )
+
+  key <- nst_get_key()
+  if (!is.null(key)) {
+    req <- httr2::req_headers(req, "nst-key" = key)
+  } else {
+    cli::cli_abort(c("Error in saturalstattrick:::nst_linescore_call: no nst-key available.",
+      i = "See https://www.naturalstattrick.com/scraping.php for info."
+    ))
+  }
+
+  nst_html <- req %>%
+    httr2::req_throttle(180 / 3600) %>%
+    httr2::req_retry(5) %>%
+    httr2::req_timeout(30) %>%
+    httr2::req_user_agent("naturalstattrick r package - github.com/pbulsink/naturalstattrick") %>%
+    httr2::req_perform() %>%
+    httr2::resp_body_html() %>%
     rvest::html_element(css = "#teams") %>%
     rvest::html_table()
 
-  Sys.sleep(18) # NST has a max hit rate
   return(nst_html)
 }
