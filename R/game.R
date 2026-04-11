@@ -78,7 +78,7 @@ nst_table_cleanup <- function(data) {
   if (all(is.na(data$x))) {
     data$x <- c("UnknownHome", "UnknownAway")
   }
-  if (!"period" %in% colnames(data)){
+  if (!"period" %in% colnames(data)) {
     data$period <- ""
   }
   data %>%
