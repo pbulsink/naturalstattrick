@@ -78,7 +78,7 @@ nst_table_cleanup <- function(data) {
   if (all(is.na(data$x))) {
     data$x <- c("UnknownHome", "UnknownAway")
   }
-  if (!"team" %in% colnames(data)){
+  if (!"team" %in% colnames(data)) {
     data$team <- data$x
   }
   if (!"period" %in% colnames(data)) {
@@ -125,7 +125,7 @@ nst_table_cleanup <- function(data) {
 }
 
 nst_game_call <- function(season, game_id) {
-  if(!(as.integer(substr(season, 1, 4)) >= 2007)){
+  if (!(as.integer(substr(season, 1, 4)) >= 2007)) {
     cli::cli_abort("NaturalStatTrick data only available from 2007-2008 and onward.")
   }
 
