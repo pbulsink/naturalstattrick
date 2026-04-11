@@ -7,6 +7,7 @@ Description: This package allows for accessing of Natural Stat Trick (https://na
 Encoding: UTF-8
 LazyData: true
 Imports: 
+    cli,
     dplyr,
     httr2,
     janitor,

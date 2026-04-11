@@ -78,11 +78,14 @@ nst_table_cleanup <- function(data) {
   if (all(is.na(data$x))) {
     data$x <- c("UnknownHome", "UnknownAway")
   }
+  if (!"team" %in% colnames(data)){
+    data$team <- data$x
+  }
   if (!"period" %in% colnames(data)){
     data$period <- ""
   }
   data %>%
-    dplyr::rename("ha" = "x", "xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%
+    dplyr::rename("xgf" = "x_gf", "xga" = "x_ga", "xgf_percent" = "x_gf_percent") %>%
     dplyr::mutate(period = sub("\nFinal", "Final", .data$period)) %>%
     dplyr::mutate(period = sub("Final", "\nFinal", .data$period)) %>%
     tidyr::separate_longer_delim(
@@ -122,7 +125,9 @@ nst_table_cleanup <- function(data) {
 }
 
 nst_game_call <- function(season, game_id) {
-  stopifnot(as.integer(substr(season, 1, 4)) >= 2007)
+  if(!(as.integer(substr(season, 1, 4)) >= 2007)){
+    cli::cli_abort("NaturalStatTrick data only available from 2007-2008 and onward.")
+  }
 
   req <- httr2::request("https://data.naturalstattrick.com") %>%
     httr2::req_url_path_append("game.php") %>%
