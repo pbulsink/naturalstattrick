@@ -14,7 +14,6 @@ Imports:
     memoise,
     rlang,
     rvest,
-    stbl (>= 0.3.0),
     tidyr
 RoxygenNote: 7.3.1
 Authors@R: 
@@ -25,5 +24,6 @@ Config/testthat/edition: 3
 Suggests: 
     astgrepr,
     testthat (>= 3.0.0),
+    stbl (>= 0.3.0),
     withr
 License: MIT + file LICENSE
